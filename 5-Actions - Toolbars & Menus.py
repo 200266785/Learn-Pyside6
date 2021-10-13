@@ -2,9 +2,9 @@ import sys
 from PySide6.QtCore import Qt,QSize
 from PySide6.QtWidgets import (
     QMainWindow, QApplication,
-    QLabel, QToolBar, QStatusBar,QCheckBox
+    QLabel, QToolBar, QStatusBar,QCheckBox,
 )
-from PySide6.QtGui import QAction,QIcon
+from PySide6.QtGui import QAction,QIcon,QKeySequence
 
 class MainWindow(QMainWindow): # Adding a toolbar
     def __init__(self):
@@ -146,7 +146,7 @@ class MainWindow_5(QMainWindow): # QToolbar Summary
 class MainWindow_6(QMainWindow): # Menus
     def __init__(self):
         super().__init__()
-        ######
+        
         self.setWindowTitle("My App")
 
         label = QLabel("Hello!")
@@ -162,6 +162,12 @@ class MainWindow_6(QMainWindow): # Menus
         button_action.setStatusTip("This is your button")
         button_action.setCheckable(True)
         button_action.triggered.connect(self.onMyToolBarButtonClick)
+        # add a keyboard shortcut
+        # You can enter keyboard shortcuts using key names (e.g. Ctrl+p)
+        # Qt.namespace identifiers (e.g. Qt.CTRL + Qt.Key_P)
+        # or system agnostic identifiers (e.g. QKeySequence.Print)       
+        button_action.setShortcut(Qt.CTRL+Qt.Key_P)
+        # or button_action.setShortcut(QKeySequence("Ctrl+p"))
         
         button_action2 = QAction(QIcon("fish.png"),"Your button2",self)
         button_action2.setStatusTip("This is your button2")
@@ -177,12 +183,15 @@ class MainWindow_6(QMainWindow): # Menus
         toolbar.addWidget(QCheckBox())
         
         self.setStatusBar(QStatusBar(self))
-        ######
+        
         menu = self.menuBar()
         file_menu = menu.addMenu("&File")
         file_menu.addAction(button_action)
         file_menu.addSeparator()
         file_menu.addAction(button_action2)
+        # add a submenu
+        file_submenu =file_menu.addMenu("Submenu")
+        file_submenu.addAction(button_action2)
         
     def onMyToolBarButtonClick(self, s):
         print("click", s)
