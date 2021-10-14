@@ -123,13 +123,13 @@ class MainWindow_7(QMainWindow): # Multiple windows 2
         l = QVBoxLayout()
         button1 = QPushButton("Push for Window 1")
         button1.clicked.connect(
-            lambda checked: self.toggle_window(self.window1)
+            lambda : self.toggle_window(self.window1)
         )
         l.addWidget(button1)
 
         button2 = QPushButton("Push for Window 2")
         button2.clicked.connect(
-            lambda checked: self.toggle_window(self.window2)
+            lambda : self.toggle_window(self.window2)
         )
         l.addWidget(button2)
 
